@@ -1,21 +1,24 @@
 # 🚀 MLflow CI Pipeline – Automated Model Training
 
-Repository ini berisi implementasi Workflow Continuous Integration (CI) untuk sistem Machine Learning menggunakan MLflow Project dan GitHub Actions.
-Workflow ini memungkinkan proses re-training model berjalan otomatis setiap kali terjadi perubahan kode (push) pada branch utama.
+Repository ini berisi implementasi **Workflow Continuous Integration (CI)** untuk sistem Machine Learning menggunakan **MLflow Project** dan **GitHub Actions**.  
+Workflow ini memungkinkan proses **re-training model berjalan otomatis** setiap kali terjadi perubahan kode (push) pada branch utama.
 
-📌 Tujuan Workflow
+---
 
-Workflow CI ini dibuat untuk memenuhi Kriteria 3 – Membangun Workflow CI, dengan tujuan:
+## 📌 Tujuan Workflow
 
-Mengotomatiskan proses training model Machine Learning
+Workflow CI ini dibuat untuk memenuhi **Kriteria 3 – Membangun Workflow CI**, dengan tujuan:
 
-Menjalankan MLflow Project secara konsisten dan reproducible
+- Mengotomatiskan proses training model Machine Learning
+- Menjalankan MLflow Project secara konsisten dan reproducible
+- Memastikan model dapat dilatih ulang secara otomatis ketika trigger dipantik
+- Menyediakan fondasi untuk tahapan monitoring dan deployment selanjutnya
 
-Memastikan model dapat dilatih ulang secara otomatis ketika trigger dipantik
+---
 
-Menyediakan fondasi untuk tahapan monitoring dan deployment selanjutnya
+## 🗂️ Struktur Repository
 
-🗂️ Struktur Repository
+
 Workflow-CI/
 ├── .github/
 │   └── workflows/
@@ -29,57 +32,58 @@ Workflow-CI/
 │   └── README.md
 └── README.md
 
-⚙️ Teknologi yang Digunakan
 
-Python 3.9
+---
 
-MLflow Project
+## ⚙️ Teknologi yang Digunakan
 
-Scikit-Learn
+- **Python 3.9**
+- **MLflow Project**
+- **Scikit-Learn**
+- **XGBoost**
+- **GitHub Actions**
 
-XGBoost
+---
 
-GitHub Actions
-
-🔁 Alur Workflow CI
+## 🔁 Alur Workflow CI
 
 Workflow CI berjalan dengan alur sebagai berikut:
 
-Trigger
+### 1️⃣ Trigger
+- Workflow aktif setiap kali terjadi `push` ke branch `main`
+- Workflow juga dapat dijalankan secara manual melalui `workflow_dispatch`
 
-Workflow aktif setiap kali terjadi push ke branch main
+### 2️⃣ Checkout Repository
+- Mengambil source code terbaru dari repository GitHub
 
-Dapat dijalankan secara manual melalui workflow_dispatch
+### 3️⃣ Set Up Python Environment
+- Menggunakan Python versi **3.9**
 
-Checkout Repository
+### 4️⃣ Install Dependencies
+- Menginstal library yang dibutuhkan seperti:
+  - mlflow  
+  - pandas  
+  - scikit-learn  
+  - xgboost  
 
-Mengambil source code terbaru dari repository GitHub
+### 5️⃣ Run MLflow Project
+- Menjalankan perintah `mlflow run .` pada folder `MLProject`
+- Training model dilakukan secara otomatis menggunakan dataset hasil preprocessing
+- Parameter dan metrik dicatat menggunakan **MLflow Tracking (local)**
 
-Set Up Python Environment
+---
 
-Menggunakan Python versi 3.9
-
-Install Dependencies
-
-Menginstal library yang dibutuhkan seperti MLflow, pandas, scikit-learn, dan xgboost
-
-Run MLflow Project
-
-Menjalankan perintah mlflow run . pada folder MLProject
-
-Training model dilakukan secara otomatis menggunakan dataset hasil preprocessing
-
-Metric dan parameter dicatat melalui MLflow Tracking (local)
-
-▶️ File Workflow CI
+## ▶️ File Workflow CI
 
 File workflow CI berada pada:
 
 .github/workflows/ci.yml
 
 
+
 Isi utama workflow:
 
+```yaml
 name: MLflow CI Pipeline
 
 on:
@@ -112,6 +116,7 @@ jobs:
           cd MLProject
           mkdir -p mlruns
           mlflow run . --env-manager=local
+
 
 ✅ Hasil Workflow
 
