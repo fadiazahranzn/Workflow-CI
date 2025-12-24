@@ -2,6 +2,7 @@ import argparse
 import mlflow
 import mlflow.xgboost
 import pandas as pd
+import os
 
 from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
@@ -10,14 +11,14 @@ from sklearn.metrics import accuracy_score, f1_score
 
 def main(data_path):
     # =========================
-    # Fix artifact path for CI
+    # FORCE MLflow local paths (CI SAFE)
     # =========================
     mlflow.set_tracking_uri("file:./mlruns")
+    os.environ["MLFLOW_ARTIFACT_URI"] = "file:./mlruns"
 
-    # =========================
-    # Load dataset (USE ARG)
-    # =========================
+    # Load dataset
     data = pd.read_csv(data_path)
+
 
     TARGET_COL = "diabetes"
 
