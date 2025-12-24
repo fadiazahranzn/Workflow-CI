@@ -10,7 +10,12 @@ from sklearn.metrics import accuracy_score, f1_score
 
 def main(data_path):
     # =========================
-    # Load dataset
+    # Fix artifact path for CI
+    # =========================
+    mlflow.set_tracking_uri("file:./mlruns")
+
+    # =========================
+    # Load dataset (USE ARG)
     # =========================
     data = pd.read_csv(data_path)
 
@@ -26,11 +31,7 @@ def main(data_path):
         stratify=y
     )
 
-    # =========================
-    # Training
-    # =========================
     with mlflow.start_run():
-
         model = XGBClassifier(
             n_estimators=200,
             max_depth=6,
