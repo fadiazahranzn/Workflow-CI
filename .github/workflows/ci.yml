@@ -2,7 +2,8 @@ name: MLflow CI Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -10,38 +11,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.9"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
 
-    - name: Install dependencies
-      run: |
-        pip install mlflow pandas scikit-learn xgboost
+      - name: Install dependencies
+        run: |
+          pip install mlflow pandas scikit-learn xgboost
 
-    - - name: Run MLflow Project (Training)
+      - name: Run MLflow Project (Training)
         run: |
           cd MLProject
           mlflow run . --env-manager=local
 
+      - name: Build Docker Image with MLflow
+        run: |
+          cd MLProject
+          mlflow models build-docker -m runs:/$(mlflow runs list --max-results 1 | tail -n 1 | awk '{print $1}') \
+            -n ${{ secrets.DOCKER_USERNAME }}/diabetes-xgboost
 
-    # =========================
-    # ADVANCED: Build Docker Image
-    # =========================
-    - name: Build Docker Image with MLflow
-      run: |
-        cd MLProject
-        mlflow build-docker -n ${{ secrets.DOCKER_USERNAME }}/diabetes-xgboost .
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Login to Docker Hub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-
-    - name: Push Docker Image
-      run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/diabetes-xgboost
+      - name: Push Docker Image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/diabetes-xgboost
