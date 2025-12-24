@@ -22,10 +22,11 @@ jobs:
       run: |
         pip install mlflow pandas scikit-learn xgboost
 
-    - name: Run MLflow Project (Training)
-      run: |
-        cd MLProject
-        mlflow run .
+    - - name: Run MLflow Project (Training)
+        run: |
+          cd MLProject
+          mlflow run . --env-manager=local
+
 
     # =========================
     # ADVANCED: Build Docker Image
