@@ -117,29 +117,27 @@ jobs:
           mkdir -p mlruns
           mlflow run . --env-manager=local
 
+## ✅ Hasil Workflow
 
-✅ Hasil Workflow
+- Workflow berhasil dijalankan tanpa error pada GitHub Actions  
+- Model berhasil dilatih secara otomatis menggunakan MLflow Project  
+- Proses training berjalan stabil di environment Continuous Integration (CI)  
+- Workflow siap digunakan sebagai dasar untuk tahapan **Monitoring & Logging (Kriteria 4)**  
 
-Workflow berhasil dijalankan tanpa error
+---
 
-Model berhasil dilatih secara otomatis
+## 📸 Bukti Keberhasilan
 
-MLflow Project berjalan dengan baik di environment CI
+Workflow CI berhasil dijalankan dengan status **Success (✔)** pada GitHub Actions.  
+Bukti keberhasilan dapat dilihat melalui tab **Actions** pada repository ini.
 
-Workflow siap digunakan sebagai dasar untuk Monitoring & Logging (Kriteria 4)
+---
 
-📸 Bukti Keberhasilan
-
-Workflow CI berhasil dijalankan dengan status Success (✔) pada GitHub Actions, ditunjukkan melalui halaman Actions pada repository ini.
-
-🏁 Kesimpulan
+## 🏁 Kesimpulan
 
 Dengan adanya workflow CI ini, proses training model Machine Learning menjadi:
 
-Otomatis
-
-Reproducible
-
-Terintegrasi dengan version control
-
-Siap dikembangkan ke tahap monitoring dan deployment
+- **Otomatis**
+- **Reproducible**
+- **Terintegrasi dengan version control**
+- **Siap dikembangkan ke tahap monitoring dan deployment**
