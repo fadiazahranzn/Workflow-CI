@@ -1,7 +1,0 @@
-name: diabetes-xgboost-project
-
-entry_points:
-  main:
-    command: "python modelling.py"
-
-conda_env: conda.yaml

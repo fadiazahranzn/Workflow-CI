@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/FADIA/Documents/Asah%20ML%20Engineer/5.%20MLOps%20Membangun%20Sistem%20Machine%20Learning/Workflow-CI/MLProject/mlruns/0/models/m-a0d4109fcc2946808f2f1e33e712d29f/artifacts
+creation_timestamp: 1766558222861
+experiment_id: '0'
+last_updated_timestamp: 1766558238021
+model_id: m-a0d4109fcc2946808f2f1e33e712d29f
+model_type: null
+name: model
+source_run_id: 022065c6e1d04384b81c04b3669a395d
+status: 2
+status_message: null
