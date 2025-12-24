@@ -1,5 +1,7 @@
 name: diabetes-xgboost-project
 
+artifact_location: ./mlruns
+
 conda_env: conda.yaml
 
 entry_points:
